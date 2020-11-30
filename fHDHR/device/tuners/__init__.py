@@ -36,6 +36,7 @@ class Tuners():
             tuner_status = self.tuners[int(tunernum)].status
             if tuner_status["status"] == "Active":
                 if tuner_status["channel"] == channel_number:
+                    self.fhdhr.logger.info("Tuner #" + str(tunernum) + " To Be Shared.")
                     return tunernum
         return self.first_available()
 
