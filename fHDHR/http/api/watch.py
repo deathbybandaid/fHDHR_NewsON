@@ -19,8 +19,6 @@ class Watch():
 
     def get(self, *args):
 
-        print(request.sid)
-
         client_address = request.remote_addr
 
         accessed_url = request.args.get('accessed', default=request.url, type=str)
