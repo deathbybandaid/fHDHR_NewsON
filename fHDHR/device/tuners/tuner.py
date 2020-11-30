@@ -53,9 +53,32 @@ class Tuner():
     def get_stream(self, stream_args, tuner):
         if not self.internal_socket:
             self.internal_socket = Internal_Tuner_Socket(self.fhdhr, stream_args, tuner)
-        # start socket + generator
-        # listen to socket and yeild
-        return self.internal_socket.stream.get()
+        stream_address = "http://%s:%s" % (self.internal_socket.host, self.internal_socket.port)
+        req = self.fhdhr.web.session.get(stream_address, stream=True)
+
+        def generate():
+
+            try:
+
+                while self.tuner_lock.locked():
+
+                    for chunk in req.iter_content(chunk_size=self.chunksize):
+
+                        if not chunk:
+                            break
+                            # raise TunerError("807 - No Video Data")
+
+                        yield chunk
+
+            except GeneratorExit:
+                self.fhdhr.logger.info("Connection Closed.")
+            except Exception as e:
+                self.fhdhr.logger.info("Connection Closed: " + str(e))
+            finally:
+                req.close()
+                # raise TunerError("806 - Tune Failed")
+
+        return generate()
 
     def set_status(self, stream_args):
         if self.status["status"] != "Active":

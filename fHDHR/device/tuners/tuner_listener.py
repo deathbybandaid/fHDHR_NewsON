@@ -1,6 +1,6 @@
 import socket
-# import multiprocessing
-# import threading
+import multiprocessing
+import threading
 
 from .stream import Stream
 
@@ -19,16 +19,17 @@ class Internal_Tuner_Socket():
         self.sock.bind((self.host, self.port))
 
         self.port = self.sock.getsockname()[1]
-        print(self.port)
-
-        # if self.fhdhr.config.dict["main"]["thread_method"] in ["multiprocessing"]:
-        #    streamsocket = multiprocessing.Process(target=self.socket_start)
-        # elif self.fhdhr.config.dict["main"]["thread_method"] in ["threading"]:
-        #    streamsocket = threading.Thread(target=self.socket_start)
-        # if self.fhdhr.config.dict["main"]["thread_method"] in ["multiprocessing", "threading"]:
-        #    streamsocket.start()
 
     def socket_start(self):
+        if self.fhdhr.config.dict["main"]["thread_method"] in ["multiprocessing"]:
+            streamsocket = multiprocessing.Process(target=self.socket_run)
+        elif self.fhdhr.config.dict["main"]["thread_method"] in ["threading"]:
+            streamsocket = threading.Thread(target=self.socket_run)
+        if self.fhdhr.config.dict["main"]["thread_method"] in ["multiprocessing", "threading"]:
+            streamsocket.start()
+
+    def socket_run(self):
 
         while self.tuner.tuner_lock.locked():
             connection, client_address = self.sock.accept()
+            self.sock.sendto(self.stream.get(), client_address)
