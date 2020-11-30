@@ -70,7 +70,10 @@ class Watch():
 
             try:
                 if not tuner_number:
-                    tunernum = self.fhdhr.device.tuners.first_available()
+                    if self.fhdhr.config.dict["fhdhr"]["shared_tuning"]:
+                        tunernum = self.fhdhr.device.tuners.shared_tuning(channel_number)
+                    else:
+                        tunernum = self.fhdhr.device.tuners.first_available()
                 else:
                     tunernum = self.fhdhr.device.tuners.tuner_grab(tuner_number)
             except TunerError as e:
