@@ -4,7 +4,7 @@ import datetime
 from fHDHR.exceptions import TunerError
 from fHDHR.tools import humanized_time
 
-from .stream import Stream
+from .tuner_listener import Internal_Tuner_Socket
 
 
 class Tuner():
@@ -13,6 +13,8 @@ class Tuner():
 
         self.number = inum
         self.epg = epg
+
+        self.internal_socket = None
 
         self.tuner_lock = threading.Lock()
         self.set_off_status()
@@ -49,8 +51,11 @@ class Tuner():
         self.status = {"status": "Inactive"}
 
     def get_stream(self, stream_args, tuner):
-        stream = Stream(self.fhdhr, stream_args, tuner)
-        return stream.get()
+        if not self.internal_socket:
+            self.internal_socket = Internal_Tuner_Socket(self.fhdhr, stream_args, tuner)
+        # start socket + generator
+        # listen to socket and yeild
+        return self.internal_socket.stream.get()
 
     def set_status(self, stream_args):
         if self.status["status"] != "Active":
