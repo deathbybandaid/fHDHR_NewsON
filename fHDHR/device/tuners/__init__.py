@@ -31,6 +31,14 @@ class Tuners():
 
         return tuner_number
 
+    def shared_tuning(self, channel_number):
+        for tunernum in list(self.tuners.keys()):
+            tuner_status = self.tuners[int(tunernum)].status
+            if tuner_status["status"] == "Active":
+                if tuner_status["channel"] == channel_number:
+                    return tunernum
+        return self.first_available()
+
     def first_available(self):
 
         if not self.available_tuner_count():

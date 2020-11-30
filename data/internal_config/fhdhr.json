@@ -66,6 +66,11 @@
                     "value": true,
                     "config_file": true,
                     "config_web": true
+                },
+          "shared_tuning":{
+                    "value": false,
+                    "config_file": true,
+                    "config_web": true
                 }
   },
   "epg":{
