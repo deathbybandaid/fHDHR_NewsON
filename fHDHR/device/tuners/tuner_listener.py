@@ -18,7 +18,8 @@ class Internal_Tuner_Socket():
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.sock.bind((self.host, self.port))
 
-        print(self.sock.getsockname())
+        self.port = self.sock.getsockname()[1]
+        print(self.port)
 
         # if self.fhdhr.config.dict["main"]["thread_method"] in ["multiprocessing"]:
         #    streamsocket = multiprocessing.Process(target=self.socket_start)
