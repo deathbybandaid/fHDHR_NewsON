@@ -122,6 +122,7 @@ class Direct_Stream():
                                     if key["url"]:
                                         keyfile = self.fhdhr.web.session.get(key["url"]).content
                                         cryptor = AES.new(keyfile, AES.MODE_CBC, keyfile)
+                                        self.fhdhr.logger.info("Decrypting Chunk with key: %s" % key["url"])
                                         chunk = cryptor.decrypt(chunk)
 
                                 self.fhdhr.logger.info("Passing Through Chunk: %s" % chunkurl)
