@@ -22,12 +22,6 @@ class RMG_Ident_XML():
         out = xml.etree.ElementTree.Element('root')
         out.set('xmlns', "urn:schemas-upnp-org:device-1-0")
 
-        sub_el(out, 'URLBase', base_url)
-
-        specVersion_out = sub_el(out, 'specVersion')
-        sub_el(specVersion_out, 'major', "1")
-        sub_el(specVersion_out, 'minor', "0")
-
         device_out = sub_el(out, 'MediaContainer')
         sub_el(device_out, 'MediaGrabber',
                identifier="tv.plex.grabbers.fHDHR",
