@@ -1,4 +1,6 @@
 
+from .root_url import Root_URL
+
 from .cluster import Cluster
 from .settings import Settings
 from .channels import Channels
@@ -16,6 +18,8 @@ class fHDHR_API():
 
     def __init__(self, fhdhr):
         self.fhdhr = fhdhr
+
+        self.root_url = Root_URL(fhdhr)
 
         self.cluster = Cluster(fhdhr)
         self.settings = Settings(fhdhr)
