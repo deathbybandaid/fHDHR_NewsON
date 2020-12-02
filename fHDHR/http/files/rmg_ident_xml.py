@@ -20,7 +20,6 @@ class RMG_Ident_XML():
         base_url = request.url_root[:-1]
 
         out = xml.etree.ElementTree.Element('root')
-        out.set('xmlns', "urn:schemas-upnp-org:device-1-0")
 
         device_out = sub_el(out, 'MediaContainer')
         sub_el(device_out, 'MediaGrabber',
