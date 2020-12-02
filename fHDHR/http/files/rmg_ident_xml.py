@@ -19,10 +19,8 @@ class RMG_Ident_XML():
 
         base_url = request.url_root[:-1]
 
-        out = xml.etree.ElementTree.Element('root')
-
-        device_out = sub_el(out, 'MediaContainer')
-        sub_el(device_out, 'MediaGrabber',
+        out = xml.etree.ElementTree.Element('MediaContainer')
+        sub_el(out, 'MediaGrabber',
                identifier="tv.plex.grabbers.fHDHR",
                title=str(self.fhdhr.config.dict["fhdhr"]["friendlyname"]),
                protocols="livetv",
