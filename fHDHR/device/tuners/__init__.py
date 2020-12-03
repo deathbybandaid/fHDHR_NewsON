@@ -20,19 +20,16 @@ class Tuners():
         for i in range(0, self.max_tuners):
             self.tuners[str(i)] = Tuner(fhdhr, i, epg)
 
+    def get_available_tuner(self):
+        return next(tunernum for tunernum in list(self.tuners.keys()) if self.tuners[tunernum].status["status"] == "Inactive") or None
+
     def tuner_scan(self):
         """Temporarily use a tuner for a scan"""
         if not self.available_tuner_count():
             raise TunerError("805 - All Tuners In Use")
 
-        tunernumber = 0
-
-        for tunernum in list(self.tuners.keys()):
-            try:
-                self.tuners[str(tunernum)].channel_scan()
-                tunernumber = tunernum
-            except TunerError:
-                continue
+        tunernumber = self.get_available_tuner()
+        self.tuners[str(tunernumber)].channel_scan()
 
         if not tunernumber:
             raise TunerError("805 - All Tuners In Use")
@@ -53,15 +50,12 @@ class Tuners():
         if not self.available_tuner_count():
             raise TunerError("805 - All Tuners In Use")
 
-        for tunernum in list(self.tuners.keys()):
-            try:
-                self.tuners[str(tunernum)].grab(channel_number)
-            except TunerError:
-                continue
-            else:
-                return tunernum
+        tunernumber = self.get_available_tuner()
 
-        raise TunerError("805 - All Tuners In Use")
+        if not tunernumber:
+            raise TunerError("805 - All Tuners In Use")
+        else:
+            return tunernumber
 
     def tuner_close(self, tunernum):
         self.tuners[str(tunernum)].close()
