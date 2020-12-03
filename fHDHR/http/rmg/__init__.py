@@ -8,6 +8,8 @@ from .devices_devicekey_channels import RMG_Devices_DeviceKey_Channels
 from .devices_devicekey_scanners import RMG_Devices_DeviceKey_Scanners
 from .devices_devicekey_networks import RMG_Devices_DeviceKey_Networks
 from .devices_devicekey_scan import RMG_Devices_DeviceKey_Scan
+from .devices_devicekey_prefs import RMG_Devices_DeviceKey_Prefs
+from .devices_devicekey_media import RMG_Devices_DeviceKey_Media
 
 
 class fHDHR_RMG():
@@ -24,3 +26,5 @@ class fHDHR_RMG():
         self.devices_devicekey_scanners = RMG_Devices_DeviceKey_Scanners(fhdhr)
         self.devices_devicekey_networks = RMG_Devices_DeviceKey_Networks(fhdhr)
         self.devices_devicekey_scan = RMG_Devices_DeviceKey_Scan(fhdhr)
+        self.devices_devicekey_prefs = RMG_Devices_DeviceKey_Prefs(fhdhr)
+        self.devices_devicekey_media = RMG_Devices_DeviceKey_Media(fhdhr)

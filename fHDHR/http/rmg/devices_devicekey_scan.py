@@ -17,15 +17,13 @@ class RMG_Devices_DeviceKey_Scan():
     def get(self, devicekey, *args):
         """Starts a background channel scan."""
 
-        print(request.method)
-
         if request.method in ["GET", "POST"]:
 
             network = request.args.get('network', default=None, type=str)
             source = request.args.get('source', default=None, type=int)
             provider = request.args.get('provider', default=1, type=int)
 
-            self.fhdhr.logger.info("Scan Requested network:%s, source:%s, provider:%s" % (network, source, provider))
+            self.fhdhr.logger.debug("Scan Requested network:%s, source:%s, provider:%s" % (network, source, provider))
 
             out = xml.etree.ElementTree.Element('MediaContainer')
             if devicekey == self.fhdhr.config.dict["main"]["uuid"]:
