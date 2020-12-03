@@ -46,7 +46,7 @@ class RMG_Device_XML():
         sub_el(service_out, 'serviceType', "urn:plex-tv:service:MediaGrabber:1")
         sub_el(service_out, 'serviceId', "urn:plex-tv:serviceId:MediaGrabber")
 
-        sub_el(device_out, 'UDN', "uuid:" + self.fhdhr.config.dict["main"]["uuid"])
+        sub_el(device_out, 'UDN', "uuid:%s" % self.fhdhr.config.dict["main"]["uuid"])
 
         fakefile = BytesIO()
         fakefile.write(b'<?xml version="1.0" encoding="UTF-8"?>\n')

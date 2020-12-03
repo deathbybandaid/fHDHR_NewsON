@@ -13,6 +13,8 @@ class Diagnostics_HTML():
 
     def get(self, *args):
 
+        base_url = request.url_root[:-1]
+
         button_list = []
 
         button_list.append({
@@ -68,6 +70,20 @@ class Diagnostics_HTML():
                             "label": "RMG Identification XML",
                             "hdhr": "",
                             "rmg": "/rmg",
+                            "other": None,
+                            })
+
+        button_list.append({
+                            "label": "RMG Devices Discover",
+                            "hdhr": "",
+                            "rmg": "/rmg/devices/discover",
+                            "other": None,
+                            })
+
+        button_list.append({
+                            "label": "RMG Devices Probe",
+                            "hdhr": "",
+                            "rmg": "/rmg/devices/probe?uri=%s" % base_url,
                             "other": None,
                             })
 
