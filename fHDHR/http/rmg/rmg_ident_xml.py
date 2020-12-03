@@ -6,7 +6,7 @@ from fHDHR.tools import sub_el
 
 
 class RMG_Ident_XML():
-    endpoints = ["/rmg"]
+    endpoints = ["/rmg", "/rmg/"]
     endpoint_name = "rmg_ident_xml"
 
     def __init__(self, fhdhr):
