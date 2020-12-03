@@ -16,6 +16,7 @@ class Device_XML():
         return self.get(*args)
 
     def get(self, *args):
+        """Device.xml referenced from SSDP"""
 
         base_url = request.url_root[:-1]
 

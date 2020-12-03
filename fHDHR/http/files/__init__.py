@@ -3,7 +3,6 @@
 from .favicon_ico import Favicon_ICO
 from .style_css import Style_CSS
 
-from .rmg_ident_xml import RMG_Ident_XML
 from .device_xml import Device_XML
 from .lineup_xml import Lineup_XML
 
@@ -20,7 +19,6 @@ class fHDHR_Files():
         self.favicon = Favicon_ICO(fhdhr)
         self.style = Style_CSS(fhdhr)
 
-        self.rmg_ident_xml = RMG_Ident_XML(fhdhr)
         self.device_xml = Device_XML(fhdhr)
         self.lineup_xml = Lineup_XML(fhdhr)
 

@@ -16,6 +16,7 @@ class RMG_Ident_XML():
         return self.get(*args)
 
     def get(self, *args):
+        """Provides general information about the media grabber"""
 
         base_url = request.url_root[:-1]
 
