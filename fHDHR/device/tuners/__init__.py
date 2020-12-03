@@ -70,16 +70,14 @@ class Tuners():
     def available_tuner_count(self):
         available_tuners = 0
         for tunernum in list(self.tuners.keys()):
-            tuner_status = self.tuners[str(tunernum)].get_status()
-            if tuner_status["status"] == "Inactive":
+            if not self.tuners[str(tunernum)].tuner_lock.locked():
                 available_tuners += 1
         return available_tuners
 
     def inuse_tuner_count(self):
         inuse_tuners = 0
         for tunernum in list(self.tuners.keys()):
-            tuner_status = self.tuners[str(tunernum)].get_status()
-            if tuner_status["status"] == "Active":
+            if self.tuners[str(tunernum)].tuner_lock.locked():
                 inuse_tuners += 1
         return inuse_tuners
 
