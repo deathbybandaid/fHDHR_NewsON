@@ -3,8 +3,8 @@ import socket
 import struct
 
 from .ssdp_detect import fHDHR_Detect
-from .rmg_ssdp_xml import RMG_SSDP_XML
-from .hdhr_ssdp_xml import HDHR_SSDP_XML
+from .rmg_ssdp import RMG_SSDP
+from .hdhr_ssdp import HDHR_SSDP
 
 
 class SSDPServer():
@@ -81,8 +81,8 @@ class SSDPServer():
 
             self.msearch_payload = self.create_msearch_payload()
 
-            self.rmg_ssdp_xml = RMG_SSDP_XML(fhdhr, self._broadcast_ip)
-            self.hdhr_ssdp_xml = HDHR_SSDP_XML(fhdhr, self._broadcast_ip)
+            self.rmg_ssdp = RMG_SSDP(fhdhr, self._broadcast_ip)
+            self.hdhr_ssdp = HDHR_SSDP(fhdhr, self._broadcast_ip)
 
             self.m_search()
 
@@ -110,7 +110,7 @@ class SSDPServer():
             self.fhdhr.logger.debug("Received qualifying M-SEARCH from {}".format(address))
             self.fhdhr.logger.debug("M-SEARCH data: {}".format(headers))
 
-            for notify in [self.hdhr_ssdp_xml.get(), self.rmg_ssdp_xml.get()]:
+            for notify in [self.hdhr_ssdp.get(), self.rmg_ssdp.get()]:
 
                 self.fhdhr.logger.debug("Created NOTIFY: {}".format(notify))
                 try:
