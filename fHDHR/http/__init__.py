@@ -6,7 +6,7 @@ from .files import fHDHR_Files
 from .hdhr import fHDHR_HDHR
 from .rmg import fHDHR_RMG
 from .api import fHDHR_API
-from .watch import fHDHR_WATCH
+from .stream import fHDHR_Stream
 
 
 class fHDHR_HTTP_Server():
@@ -42,8 +42,8 @@ class fHDHR_HTTP_Server():
         self.add_endpoints(self.api, "api")
 
         self.fhdhr.logger.info("Loading HTTP Stream Endpoints.")
-        self.watch = fHDHR_WATCH(fhdhr)
-        self.add_endpoints(self.watch, "watch")
+        self.stream = fHDHR_Stream(fhdhr)
+        self.add_endpoints(self.stream, "stream")
 
         self.app.before_request(self.before_request)
         self.app.after_request(self.after_request)

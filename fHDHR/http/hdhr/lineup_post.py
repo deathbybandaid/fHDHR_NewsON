@@ -26,6 +26,7 @@ class Lineup_Post():
                 return Response(status=200, mimetype='text/html')
 
             elif request.args['scan'] == 'abort':
+                self.fhdhr.devoce.tuners.stop_tuner_scan()
                 return Response(status=200, mimetype='text/html')
 
             else:

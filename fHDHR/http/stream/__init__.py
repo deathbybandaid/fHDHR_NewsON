@@ -3,7 +3,7 @@ from .auto import Auto
 from .tuner import Tuner
 
 
-class fHDHR_WATCH():
+class fHDHR_Stream():
 
     def __init__(self, fhdhr):
         self.fhdhr = fhdhr

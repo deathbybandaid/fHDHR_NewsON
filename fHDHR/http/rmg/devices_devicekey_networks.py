@@ -17,14 +17,14 @@ class RMG_Devices_DeviceKey_Networks():
         return self.get(devicekey, *args)
 
     def get(self, devicekey, *args):
-        """ascertain which type of scanners are supported."""
+        """In some cases, channel scanning is a two-step process, where the first stage consists of scanning for networks (this is called "fast scan")."""
 
         out = xml.etree.ElementTree.Element('MediaContainer')
         if devicekey == self.fhdhr.config.dict["main"]["uuid"]:
             out.set('size', "1")
 
             sub_el(out, 'Network',
-                   key="0",
+                   key="1",
                    title="fHDHR"
                    )
 

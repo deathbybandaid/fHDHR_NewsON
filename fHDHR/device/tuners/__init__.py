@@ -23,6 +23,14 @@ class Tuners():
     def get_available_tuner(self):
         return next(tunernum for tunernum in list(self.tuners.keys()) if not self.tuners[tunernum].tuner_lock.locked()) or None
 
+    def get_scanning_tuner(self):
+        return next(tunernum for tunernum in list(self.tuners.keys()) if self.tuners[tunernum].dict["status"] == "Scanning") or None
+
+    def stop_tuner_scan(self):
+        tunernum = self.get_scanning_tuner()
+        if tunernum:
+            self.tuners[str(tunernum)].close()
+
     def tuner_scan(self):
         """Temporarily use a tuner for a scan"""
         if not self.available_tuner_count():
