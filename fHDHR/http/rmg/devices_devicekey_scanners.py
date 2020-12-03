@@ -19,7 +19,7 @@ class RMG_Devices_DeviceKey_Scanners():
     def get(self, devicekey, *args):
         """ascertain which type of scanners are supported."""
 
-        method = request.args.get('type', default=None, type=str)
+        method = request.args.get('type', default="0", type=str)
         # 0 (atsc), 1 (cqam), 2 (dvb-s), 3 (iptv), 4 (virtual), 5 (dvb-t), 6 (dvb-c), 7 (isdbt)
 
         out = xml.etree.ElementTree.Element('MediaContainer')
