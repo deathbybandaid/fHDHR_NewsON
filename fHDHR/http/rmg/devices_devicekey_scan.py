@@ -19,31 +19,49 @@ class RMG_Devices_DeviceKey_Scan():
 
         print(request.method)
 
-        network = request.args.get('network', default=None, type=str)
-        source = request.args.get('source', default=None, type=int)
-        provider = request.args.get('provider', default=1, type=int)
+        if request.method in ["GET", "POST"]:
 
-        self.fhdhr.logger.info("Scan Requested network:%s, source:%s, provider:%s" % (network, source, provider))
+            network = request.args.get('network', default=None, type=str)
+            source = request.args.get('source', default=None, type=int)
+            provider = request.args.get('provider', default=1, type=int)
 
-        out = xml.etree.ElementTree.Element('MediaContainer')
-        if devicekey == self.fhdhr.config.dict["main"]["uuid"]:
+            self.fhdhr.logger.info("Scan Requested network:%s, source:%s, provider:%s" % (network, source, provider))
 
-            tuner_status = self.fhdhr.device.tuners.status()
-            tuner_scanning = 0
-            for tuner in list(tuner_status.keys()):
-                if tuner_status[tuner]["status"] == "Scanning":
-                    tuner_scanning += 1
+            out = xml.etree.ElementTree.Element('MediaContainer')
+            if devicekey == self.fhdhr.config.dict["main"]["uuid"]:
 
-            if tuner_scanning:
-                out.set('status', "1")
-            else:
+                tuner_status = self.fhdhr.device.tuners.status()
+                tuner_scanning = 0
+                for tuner in list(tuner_status.keys()):
+                    if tuner_status[tuner]["status"] == "Scanning":
+                        tuner_scanning += 1
+
+                if tuner_scanning:
+                    out.set('status', "1")
+                    out.set('message', "Scanning")
+                else:
+                    out.set('status', "0")
+                    out.set('message', "Not Scanning")
+
+            fakefile = BytesIO()
+            fakefile.write(b'<?xml version="1.0" encoding="UTF-8"?>\n')
+            fakefile.write(xml.etree.ElementTree.tostring(out, encoding='UTF-8'))
+            device_xml = fakefile.getvalue()
+
+            return Response(status=200,
+                            response=device_xml,
+                            mimetype='application/xml')
+
+        elif request.method in ["DELETE"]:
+
+            out = xml.etree.ElementTree.Element('MediaContainer')
+            if devicekey == self.fhdhr.config.dict["main"]["uuid"]:
+
+                self.fhdhr.devoce.tuners.stop_tuner_scan()
                 out.set('status', "0")
+                out.set('message', "Scan Aborted")
 
-        fakefile = BytesIO()
-        fakefile.write(b'<?xml version="1.0" encoding="UTF-8"?>\n')
-        fakefile.write(xml.etree.ElementTree.tostring(out, encoding='UTF-8'))
-        device_xml = fakefile.getvalue()
-
-        return Response(status=200,
-                        response=device_xml,
-                        mimetype='application/xml')
+            fakefile = BytesIO()
+            fakefile.write(b'<?xml version="1.0" encoding="UTF-8"?>\n')
+            fakefile.write(xml.etree.ElementTree.tostring(out, encoding='UTF-8'))
+            device_xml = fakefile.getvalue()
