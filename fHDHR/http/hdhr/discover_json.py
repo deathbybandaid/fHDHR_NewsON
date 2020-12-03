@@ -25,8 +25,8 @@ class Discover_JSON():
                             "FirmwareVersion": self.fhdhr.config.dict["fhdhr"]["reporting_firmware_ver"],
                             "DeviceID": self.fhdhr.config.dict["main"]["uuid"],
                             "DeviceAuth": self.fhdhr.config.dict["fhdhr"]["device_auth"],
-                            "BaseURL": "%/hdhr/" % base_url,
-                            "LineupURL": "%/hdhr/lineup.json" % base_url
+                            "BaseURL": "%s/hdhr/" % base_url,
+                            "LineupURL": "%s/hdhr/lineup.json" % base_url
                         }
         discover_json = json.dumps(jsondiscover, indent=4)
 
