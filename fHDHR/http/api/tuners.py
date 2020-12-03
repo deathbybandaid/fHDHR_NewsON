@@ -110,9 +110,6 @@ class Tuners():
 
         elif method == "scan":
 
-            if not tuner_number or str(tuner_number) not in list(self.fhdhr.device.tuners.tuners.keys()):
-                return "%s Invalid tuner" % str(tuner_number)
-
             if not tuner_number:
                 self.fhdhr.device.tuners.tuner_scan()
             else:
