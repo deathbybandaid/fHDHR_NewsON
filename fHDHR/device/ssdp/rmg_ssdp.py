@@ -12,7 +12,7 @@ class RMG_SSDP():
         self.usn = 'uuid:' + fhdhr.config.dict["main"]["uuid"] + '::' + self.nt
         self.server = 'fHDHR/%s UPnP/1.0' % fhdhr.version
         self.location = ('http://' + fhdhr.config.dict["fhdhr"]["discovery_address"] + ':' +
-                         str(fhdhr.config.dict["fhdhr"]["port"]) + '/rmg/device.xml')
+                         str(fhdhr.config.dict["fhdhr"]["port"]) + '/device.xml')
         self.al = self.location
         self.max_age = 1800
 
