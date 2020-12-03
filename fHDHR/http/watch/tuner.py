@@ -16,7 +16,7 @@ class Tuner():
 
         method = request.args.get('method', default=self.fhdhr.config.dict["fhdhr"]["stream_type"], type=str)
 
-        redirect_url = "/api/watch?method=%s" % (method)
+        redirect_url = "/api/tuners?method=%s" % (method)
 
         redirect_url += "&tuner=%s" % str(tuner_number)
 

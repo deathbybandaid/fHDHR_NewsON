@@ -20,25 +20,42 @@ class Tuners():
         for i in range(0, self.max_tuners):
             self.tuners[str(i)] = Tuner(fhdhr, i, epg)
 
-    def tuner_grab(self, tuner_number):
+    def tuner_scan(self):
+        """Temporarily use a tuner for a scan"""
+        if not self.available_tuner_count():
+            raise TunerError("805 - All Tuners In Use")
+
+        tunernumber = 0
+
+        for tunernum in list(self.tuners.keys()):
+            try:
+                self.tuners[str(tunernum)].channel_scan()
+                tunernumber = tunernum
+            except TunerError:
+                continue
+
+        if not tunernumber:
+            raise TunerError("805 - All Tuners In Use")
+
+    def tuner_grab(self, tuner_number, channel_number):
 
         if str(tuner_number) not in list(self.tuners.keys()):
             self.fhdhr.logger.error("Tuner %s does not exist." % str(tuner_number))
             raise TunerError("806 - Tune Failed")
 
         # TunerError will raise if unavailable
-        self.tuners[str(tuner_number)].grab()
+        self.tuners[str(tuner_number)].grab(channel_number)
 
         return tuner_number
 
-    def first_available(self):
+    def first_available(self, channel_number):
 
         if not self.available_tuner_count():
             raise TunerError("805 - All Tuners In Use")
 
         for tunernum in list(self.tuners.keys()):
             try:
-                self.tuners[str(tunernum)].grab()
+                self.tuners[str(tunernum)].grab(channel_number)
             except TunerError:
                 continue
             else:

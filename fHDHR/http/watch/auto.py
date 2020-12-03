@@ -16,7 +16,7 @@ class Auto():
 
         method = request.args.get('method', default=self.fhdhr.config.dict["fhdhr"]["stream_type"], type=str)
 
-        redirect_url = "/api/watch?method=%s" % (method)
+        redirect_url = "/api/tuners?method=%s" % (method)
 
         if channel.startswith("v"):
             channel_number = channel.replace('v', '')

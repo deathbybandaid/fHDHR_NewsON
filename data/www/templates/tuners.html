@@ -32,8 +32,11 @@
           {% endif %}
           <td>
             <div>
-              {% if tuner_dict["status"] in ["Active", "Acquired"] %}
-                <button onclick="OpenLink('/api/watch?method=close&tuner={{ tuner_dict["number"] }}&redirect=%2Fstreams')">Close</a></button>
+              {% if tuner_dict["status"] != "Inactive" %}
+                <button onclick="OpenLink('/api/tuners?method=close&tuner={{ tuner_dict["number"] }}&redirect=%2Fstreams')">Close</a></button>
+              {% endif %}
+              {% if not tuner_scanning and tuner_dict["status"] == "Inactive" %}
+                <button onclick="OpenLink('/api/tuners?method=scan&tuner={{ tuner_dict["number"] }}&redirect=%2Fstreams')">Channel Scan</a></button>
               {% endif %}
             </div>
           </td>

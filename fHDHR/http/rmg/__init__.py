@@ -3,7 +3,7 @@ from .rmg_ident_xml import RMG_Ident_XML
 from .device_xml import RMG_Device_XML
 from .devices_discover import RMG_Devices_Discover
 from .devices_probe import RMG_Devices_Probe
-# from .devices_devicekey import RMG_Devices_DeviceKey
+from .devices_devicekey import RMG_Devices_DeviceKey
 
 
 class fHDHR_RMG():
@@ -15,4 +15,4 @@ class fHDHR_RMG():
         self.device_xml = RMG_Device_XML(fhdhr)
         self.devices_discover = RMG_Devices_Discover(fhdhr)
         self.devices_probe = RMG_Devices_Probe(fhdhr)
-        # self.devices_devicekey = RMG_Devices_DeviceKey(fhdhr)
+        self.devices_devicekey = RMG_Devices_DeviceKey(fhdhr)
