@@ -59,15 +59,15 @@ class Diagnostics_HTML():
 
         button_list.append({
                             "label": "Device XML",
-                            "hdhr": "/device.xml?method=hdhr",
-                            "rmg": "/device.xml?method=rmg",
+                            "hdhr": "/hdhr/device.xml",
+                            "rmg": "/rmg/device.xml",
                             "other": None,
                             })
 
         button_list.append({
                             "label": "RMG Identification XML",
                             "hdhr": "",
-                            "rmg": "/rmg_ident.xml",
+                            "rmg": "/rmg",
                             "other": None,
                             })
 

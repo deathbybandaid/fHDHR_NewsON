@@ -21,16 +21,12 @@ class Root_URL():
 
             # Plex Remote Media Grabber redirect
             if self.fhdhr.config.dict["rmg"]["enabled"] and str(user_agent).lower().startswith("plexmediaserver"):
-                redirect_url = "/rmg_ident.xml"
-                return redirect(redirect_url)
+                return redirect("/rmg")
 
             # Client Device is looking for HDHR type device
             else:
-                redirect_url = "/device.xml"
-                return redirect(redirect_url)
+                return redirect("/hdhr/device.xml")
 
         # Anything Else is likely a Web Browser
         else:
-
-            redirect_url = "/index"
-            return redirect(redirect_url)
+            return redirect("/index")

@@ -3,6 +3,7 @@ from flask import Flask, request
 
 from .pages import fHDHR_Pages
 from .files import fHDHR_Files
+from .hdhr import fHDHR_HDHR
 from .rmg import fHDHR_RMG
 from .api import fHDHR_API
 from .watch import fHDHR_WATCH
@@ -27,6 +28,10 @@ class fHDHR_HTTP_Server():
         self.fhdhr.logger.info("Loading HTTP Files Endpoints.")
         self.files = fHDHR_Files(fhdhr)
         self.add_endpoints(self.files, "files")
+
+        self.fhdhr.logger.info("Loading HTTP HDHR Endpoints.")
+        self.hdhr = fHDHR_HDHR(fhdhr)
+        self.add_endpoints(self.hdhr, "hdhr")
 
         self.fhdhr.logger.info("Loading HTTP RMG Endpoints.")
         self.rmg = fHDHR_RMG(fhdhr)
