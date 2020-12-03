@@ -23,7 +23,7 @@ class Lineup_JSON():
             channel_obj = self.fhdhr.device.channels.list[fhdhr_id]
             if channel_obj.enabled or show == "found":
                 lineup_dict = channel_obj.lineup_dict()
-                lineup_dict["URL"] = "%s" % (base_url, lineup_dict["URL"])
+                lineup_dict["URL"] = "%s%s" % (base_url, lineup_dict["URL"])
                 if show == "found" and channel_obj.enabled:
                     lineup_dict["Enabled"] = 1
                 elif show == "found" and not channel_obj.enabled:
