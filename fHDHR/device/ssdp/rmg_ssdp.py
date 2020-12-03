@@ -1,6 +1,6 @@
 
 
-class RMG_SSD():
+class RMG_SSDP():
 
     def __init__(self, fhdhr, _broadcast_ip):
         self.fhdhr = fhdhr
