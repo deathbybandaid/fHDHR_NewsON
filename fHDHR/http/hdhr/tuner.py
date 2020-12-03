@@ -3,8 +3,8 @@ import urllib.parse
 
 
 class Tuner():
-    endpoints = ['/tuner<tuner_number>/<channel>']
-    endpoint_name = "watch_tuner"
+    endpoints = ['/tuner<tuner_number>/<channel>', '/hdhr/tuner<tuner_number>/<channel>']
+    endpoint_name = "hdhr_tuner"
 
     def __init__(self, fhdhr):
         self.fhdhr = fhdhr

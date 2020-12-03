@@ -41,10 +41,6 @@ class fHDHR_HTTP_Server():
         self.api = fHDHR_API(fhdhr)
         self.add_endpoints(self.api, "api")
 
-        self.fhdhr.logger.info("Loading HTTP Stream Endpoints.")
-        self.stream = fHDHR_Stream(fhdhr)
-        self.add_endpoints(self.stream, "stream")
-
         self.app.before_request(self.before_request)
         self.app.after_request(self.after_request)
 
