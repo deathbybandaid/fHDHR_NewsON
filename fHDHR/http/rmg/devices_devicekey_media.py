@@ -10,10 +10,10 @@ class RMG_Devices_DeviceKey_Media():
     def __init__(self, fhdhr):
         self.fhdhr = fhdhr
 
-    def __call__(self, channel, *args):
-        return self.get(channel, *args)
+    def __call__(self, devicekey, channel, *args):
+        return self.get(devicekey, channel, *args)
 
-    def get(self, channel, *args):
+    def get(self, devicekey, channel, *args):
 
         param = request.args.get('method', default=None, type=str)
         self.fhdhr.logger.debug("param:%s" % param)
