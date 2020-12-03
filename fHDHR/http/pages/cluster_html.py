@@ -1,6 +1,5 @@
 from flask import request, render_template
 import urllib.parse
-import json
 
 
 class Cluster_HTML():
