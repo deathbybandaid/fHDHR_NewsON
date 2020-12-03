@@ -40,21 +40,21 @@ class Diagnostics_HTML():
 
         button_list.append({
                             "label": "Lineup JSON",
-                            "hdhr": "/lineup.json",
+                            "hdhr": "/hdhr/lineup.json",
                             "rmg": None,
                             "other": None,
                             })
 
         button_list.append({
                             "label": "Lineup Status",
-                            "hdhr": "/lineup_status.json",
+                            "hdhr": "/hdhr/lineup_status.json",
                             "rmg": None,
                             "other": None,
                             })
 
         button_list.append({
                             "label": "Discover Json",
-                            "hdhr": "/discover.json",
+                            "hdhr": "/hdhr/discover.json",
                             "rmg": None,
                             "other": None,
                             })
