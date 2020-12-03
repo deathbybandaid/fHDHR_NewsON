@@ -24,7 +24,7 @@ class Tuners():
         return next(tunernum for tunernum in list(self.tuners.keys()) if not self.tuners[tunernum].tuner_lock.locked()) or None
 
     def get_scanning_tuner(self):
-        return next(tunernum for tunernum in list(self.tuners.keys()) if self.tuners[tunernum].dict["status"] == "Scanning") or None
+        return next(tunernum for tunernum in list(self.tuners.keys()) if self.tuners[tunernum].status["status"] == "Scanning") or None
 
     def stop_tuner_scan(self):
         tunernum = self.get_scanning_tuner()
