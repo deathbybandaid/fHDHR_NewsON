@@ -40,13 +40,13 @@ class Device_XML():
 
         sub_el(device_out, 'friendlyName', self.fhdhr.config.dict["fhdhr"]["friendlyname"])
         sub_el(device_out, 'manufacturer', self.fhdhr.config.dict["fhdhr"]["reporting_manufacturer"])
-        sub_el(device_out, 'manufacturerURL', "https://github.com/fHDHR/" % self.fhdhr.config.dict["main"]["reponame"])
+        sub_el(device_out, 'manufacturerURL', "https://github.com/fHDHR/%s" % self.fhdhr.config.dict["main"]["reponame"])
         sub_el(device_out, 'modelName', self.fhdhr.config.dict["fhdhr"]["reporting_model"])
         sub_el(device_out, 'modelNumber', self.fhdhr.config.internal["versions"]["fHDHR"])
 
         if self.fhdhr.config.dict["rmg"]["enabled"] and str(user_agent).lower().startswith("plexmediaserver"):
             sub_el(device_out, 'modelDescription', self.fhdhr.config.dict["fhdhr"]["friendlyname"])
-            sub_el(device_out, 'modelURL', "https://github.com/fHDHR/" % self.fhdhr.config.dict["main"]["reponame"])
+            sub_el(device_out, 'modelURL', "https://github.com/fHDHR/%s" % self.fhdhr.config.dict["main"]["reponame"])
         else:
             sub_el(device_out, 'serialNumber')
 
