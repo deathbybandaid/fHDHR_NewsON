@@ -42,7 +42,7 @@ class RMG_Device_XML():
 
         serviceList_out = sub_el(device_out, 'serviceList')
         service_out = sub_el(serviceList_out, 'service')
-        sub_el(service_out, 'URLBase', base_url)
+        sub_el(out, 'URLBase', "%/rmg/" % base_url)
         sub_el(service_out, 'serviceType', "urn:plex-tv:service:MediaGrabber:1")
         sub_el(service_out, 'serviceId', "urn:plex-tv:serviceId:MediaGrabber")
 
