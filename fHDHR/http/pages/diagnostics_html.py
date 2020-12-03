@@ -13,15 +13,62 @@ class Diagnostics_HTML():
 
     def get(self, *args):
 
-        # a list of 2 part lists containing button information
-        button_list = [
-                        ["debug.json", "/api/debug"],
-                        ["device.xml", "device.xml"],
-                        ["discover.json", "discover.json"],
-                        ["lineup.json", "lineup.json"],
-                        ["lineup.xml", "lineup.xml"],
-                        ["lineup_status.json", "lineup_status.json"],
-                        ["cluster.json", "/api/cluster?method=get"]
-                        ]
+        button_list = []
+
+        button_list.append({
+                            "label": "Debug Json",
+                            "hdhr": None,
+                            "rmg": None,
+                            "other": "/api/debug",
+                            })
+
+        button_list.append({
+                            "label": "Cluster Json",
+                            "hdhr": None,
+                            "rmg": None,
+                            "other": "/api/cluster?method=get",
+                            })
+
+        button_list.append({
+                            "label": "Lineup XML",
+                            "hdhr": "/lineup.xml",
+                            "rmg": None,
+                            "other": None,
+                            })
+
+        button_list.append({
+                            "label": "Lineup JSON",
+                            "hdhr": "/lineup.json",
+                            "rmg": None,
+                            "other": None,
+                            })
+
+        button_list.append({
+                            "label": "Lineup Status",
+                            "hdhr": "/lineup_status.json",
+                            "rmg": None,
+                            "other": None,
+                            })
+
+        button_list.append({
+                            "label": "Discover Json",
+                            "hdhr": "/discover.json",
+                            "rmg": None,
+                            "other": None,
+                            })
+
+        button_list.append({
+                            "label": "Device XML",
+                            "hdhr": "/device.xml?method=hdhr",
+                            "rmg": "/device.xml?method=rmg",
+                            "other": None,
+                            })
+
+        button_list.append({
+                            "label": "RMG Identification XML",
+                            "hdhr": "",
+                            "rmg": "/rmg_ident.xml",
+                            "other": None,
+                            })
 
         return render_template('diagnostics.html', request=request, fhdhr=self.fhdhr, button_list=button_list)
