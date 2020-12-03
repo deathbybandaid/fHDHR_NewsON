@@ -39,7 +39,6 @@ class Direct_M3U8_Stream():
             try:
 
                 played_chunk_urls = []
-                print("here")
 
                 while self.tuner.tuner_lock.locked():
 
