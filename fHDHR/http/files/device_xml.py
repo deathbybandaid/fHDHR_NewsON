@@ -19,12 +19,19 @@ class Device_XML():
 
         base_url = request.url_root[:-1]
 
+        method_override = request.args.get('method', default=None, type=str)
+
         user_agent = request.headers.get('User-Agent')
+        if (self.fhdhr.config.dict["rmg"]["enabled"] and
+           str(user_agent).lower().startswith("plexmediaserver")) or method_override == "rmg":
+            method = "rmg"
+        else:
+            method = "hdhr"
 
         out = xml.etree.ElementTree.Element('root')
         out.set('xmlns', "urn:schemas-upnp-org:device-1-0")
 
-        if not (self.fhdhr.config.dict["rmg"]["enabled"] and str(user_agent).lower().startswith("plexmediaserver")):
+        if method != "rmg":
             sub_el(out, 'URLBase', base_url)
 
         specVersion_out = sub_el(out, 'specVersion')
@@ -33,7 +40,7 @@ class Device_XML():
 
         device_out = sub_el(out, 'device')
 
-        if self.fhdhr.config.dict["rmg"]["enabled"] and str(user_agent).lower().startswith("plexmediaserver"):
+        if method == "rmg":
             sub_el(device_out, 'deviceType', "urn:plex-tv:device:Media:1")
         else:
             sub_el(device_out, 'deviceType', "urn:schemas-upnp-org:device:MediaServer:1")
@@ -44,13 +51,13 @@ class Device_XML():
         sub_el(device_out, 'modelName', self.fhdhr.config.dict["fhdhr"]["reporting_model"])
         sub_el(device_out, 'modelNumber', self.fhdhr.config.internal["versions"]["fHDHR"])
 
-        if self.fhdhr.config.dict["rmg"]["enabled"] and str(user_agent).lower().startswith("plexmediaserver"):
+        if method == "rmg":
             sub_el(device_out, 'modelDescription', self.fhdhr.config.dict["fhdhr"]["friendlyname"])
             sub_el(device_out, 'modelURL', "https://github.com/fHDHR/%s" % self.fhdhr.config.dict["main"]["reponame"])
         else:
             sub_el(device_out, 'serialNumber')
 
-        if self.fhdhr.config.dict["rmg"]["enabled"] and str(user_agent).lower().startswith("plexmediaserver"):
+        if method == "rmg":
             serviceList_out = sub_el(device_out, 'serviceList')
             service_out = sub_el(serviceList_out, 'service')
             sub_el(service_out, 'URLBase', base_url)
