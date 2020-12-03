@@ -113,8 +113,11 @@ class Tuners():
             if not tuner_number or str(tuner_number) not in list(self.fhdhr.device.tuners.tuners.keys()):
                 return "%s Invalid tuner" % str(tuner_number)
 
-            tuner = self.fhdhr.device.tuners.tuners[str(tuner_number)]
-            tuner.channel_scan()
+            if not tuner_number:
+                self.fhdhr.device.tuners.tuner_scan()
+            else:
+                tuner = self.fhdhr.device.tuners.tuners[str(tuner_number)]
+                tuner.channel_scan()
 
         else:
             return "%s Invalid Method" % method
