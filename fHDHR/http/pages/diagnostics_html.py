@@ -101,4 +101,11 @@ class Diagnostics_HTML():
                             "other": None,
                             })
 
+        button_list.append({
+                            "label": "RMG Scanners by DeviceKey",
+                            "hdhr": "",
+                            "rmg": "/rmg/devices/%s/scanners" % self.fhdhr.config.dict["main"]["uuid"],
+                            "other": None,
+                            })
+
         return render_template('diagnostics.html', request=request, fhdhr=self.fhdhr, button_list=button_list)

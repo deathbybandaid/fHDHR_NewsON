@@ -22,8 +22,8 @@ class RMG_Devices_DeviceKey():
         base_url = request.url_root[:-1]
 
         out = xml.etree.ElementTree.Element('MediaContainer')
-        out.set('size', "1")
         if devicekey == self.fhdhr.config.dict["main"]["uuid"]:
+            out.set('size', "1")
             device_out = sub_el(out, 'Device',
                                 key=self.fhdhr.config.dict["main"]["uuid"],
                                 make=self.fhdhr.config.dict["fhdhr"]["reporting_manufacturer"],
