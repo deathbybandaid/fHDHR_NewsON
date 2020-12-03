@@ -21,7 +21,7 @@ class Tuners():
             self.tuners[str(i)] = Tuner(fhdhr, i, epg)
 
     def get_available_tuner(self):
-        return next(tunernum for tunernum in list(self.tuners.keys()) if not self.tuners[tunernum].locked()) or None
+        return next(tunernum for tunernum in list(self.tuners.keys()) if not self.tuners[tunernum].tuner_lock.locked()) or None
 
     def tuner_scan(self):
         """Temporarily use a tuner for a scan"""
