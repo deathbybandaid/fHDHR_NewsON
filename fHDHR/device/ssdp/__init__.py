@@ -125,7 +125,12 @@ class SSDPServer():
             try:
                 if headers["server"].startswith("fHDHR"):
                     if headers["location"] != self.location:
-                        self.detect_method.set(headers["location"].split("/device.xml")[0])
+                        savelocation = headers["location"].split("/device.xml")[0]
+                        if savelocation.endswith("/hdhr"):
+                            savelocation = savelocation.replace("/hdhr", '')
+                        elif savelocation.endswith("/rmg"):
+                            savelocation = savelocation.replace("/rmg", '')
+                        self.detect_method.set(savelocation)
             except KeyError:
                 return
         else:
