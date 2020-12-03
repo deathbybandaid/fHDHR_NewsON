@@ -55,6 +55,7 @@ class Tuners():
         if not tunernumber:
             raise TunerError("805 - All Tuners In Use")
         else:
+            self.tuners[str(tunernumber)].grab(channel_number)
             return tunernumber
 
     def tuner_close(self, tunernum):
