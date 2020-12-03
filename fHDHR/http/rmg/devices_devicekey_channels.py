@@ -28,7 +28,7 @@ class RMG_Devices_DeviceKey_Channels():
                     sub_el(out, 'Channel',
                            drm="0",
                            channelIdentifier="id://%s" % channel_obj.dict["number"],
-                           # name=channel_obj.dict["name"],
+                           name=channel_obj.dict["name"],
                            origin=channel_obj.dict["callsign"],
                            number=str(channel_obj.dict["number"]),
                            type="tv",
