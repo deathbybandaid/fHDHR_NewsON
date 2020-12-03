@@ -6,6 +6,7 @@ from .devices_probe import RMG_Devices_Probe
 from .devices_devicekey import RMG_Devices_DeviceKey
 from .devices_devicekey_channels import RMG_Devices_DeviceKey_Channels
 from .devices_devicekey_scanners import RMG_Devices_DeviceKey_Scanners
+from .devices_devicekey_networks import RMG_Devices_DeviceKey_Networks
 
 
 class fHDHR_RMG():
@@ -20,3 +21,4 @@ class fHDHR_RMG():
         self.devices_devicekey = RMG_Devices_DeviceKey(fhdhr)
         self.devices_devicekey_channels = RMG_Devices_DeviceKey_Channels(fhdhr)
         self.devices_devicekey_scanners = RMG_Devices_DeviceKey_Scanners(fhdhr)
+        self.devices_devicekey_networks = RMG_Devices_DeviceKey_Networks(fhdhr)
