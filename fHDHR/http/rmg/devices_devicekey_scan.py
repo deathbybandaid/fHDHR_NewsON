@@ -55,7 +55,7 @@ class RMG_Devices_DeviceKey_Scan():
             out = xml.etree.ElementTree.Element('MediaContainer')
             if devicekey == self.fhdhr.config.dict["main"]["uuid"]:
 
-                self.fhdhr.devoce.tuners.stop_tuner_scan()
+                self.fhdhr.device.tuners.stop_tuner_scan()
                 out.set('status', "0")
                 out.set('message', "Scan Aborted")
 

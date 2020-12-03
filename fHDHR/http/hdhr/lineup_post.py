@@ -20,13 +20,13 @@ class Lineup_Post():
 
             if request.args['scan'] == 'start':
                 try:
-                    self.fhdhr.devoce.tuners.tuner_scan()
+                    self.fhdhr.device.tuners.tuner_scan()
                 except TunerError as e:
                     self.fhdhr.logger.info(str(e))
                 return Response(status=200, mimetype='text/html')
 
             elif request.args['scan'] == 'abort':
-                self.fhdhr.devoce.tuners.stop_tuner_scan()
+                self.fhdhr.device.tuners.stop_tuner_scan()
                 return Response(status=200, mimetype='text/html')
 
             else:
