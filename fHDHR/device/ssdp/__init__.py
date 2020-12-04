@@ -174,7 +174,8 @@ class SSDPServer():
             self.do_notify(address)
 
         elif cmd[0] == 'NOTIFY' and cmd[1] == '*':
-            if address[0] == "10.0.12.110":
+            (host, port) = address
+            if host == "10.0.12.110":
                 print(data)
             # SSDP presence
             self.fhdhr.logger.debug("NOTIFY data: {}".format(headers))
