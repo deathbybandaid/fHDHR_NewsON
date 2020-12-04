@@ -104,18 +104,39 @@ class SSDPServer():
 
         if send_alive:
             self.fhdhr.logger.info("Sending Alive message to network.")
-            self.do_notify(('239.255.255.250', 1900))
+            self.do_alive_notify(('239.255.255.250', 1900))
             self.refresh_last = time.time()
 
     def do_notify(self, address):
 
         notify_list = []
 
-        hdhr_notify = self.hdhr_ssdp.get()
+        hdhr_notify = self.hdhr_ssdp.notify()
         notify_list.append(hdhr_notify)
 
         if self.fhdhr.config.dict["rmg"]["enabled"]:
-            rmg_notify = self.rmg_ssdp.get()
+            rmg_notify = self.rmg_ssdp.notify()
+            notify_list.append(rmg_notify)
+
+        for notify in notify_list:
+
+            self.fhdhr.logger.debug("Created {}".format(notify))
+            try:
+                self.sock.sendto(notify, address)
+            except OSError as e:
+                # Most commonly: We received a multicast from an IP not in our subnet
+                self.fhdhr.logger.debug("Unable to send NOTIFY: %s" % e)
+                pass
+
+    def do_alive_notify(self, address):
+
+        notify_list = []
+
+        hdhr_notify = self.hdhr_ssdp.alive()
+        notify_list.append(hdhr_notify)
+
+        if self.fhdhr.config.dict["rmg"]["enabled"]:
+            rmg_notify = self.rmg_ssdp.alive()
             notify_list.append(rmg_notify)
 
         for notify in notify_list:
@@ -175,17 +196,17 @@ class SSDPServer():
 
     def create_msearch_payload(self):
         data = (
-            "M-SEARCH * HTTP/1.1\r\n"
-            "HOST:{}\r\n"
-            'MAN: "ssdp:discover"\r\n'
-            "ST:{}\r\n"
-            "MX:{}\r\n"
-        ).format(
-                 self.broadcast_addy,
-                 "ssdp:all",
-                 1
-                 )
-        data += "\r\n"
+            "M-SEARCH * HTTP/1.1"
+            "\r\n"
+            "HOST:239.255.255.250:1900"
+            "\r\n"
+            "MAN: \"ssdp:discover\""
+            "\r\n"
+            "ST:upnp:rootdevice"
+            "\r\n"
+            "MX:5"
+            "\r\n\r\n"
+        )
         return data.encode("utf-8")
 
     def run(self):

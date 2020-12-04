@@ -6,6 +6,7 @@ class RMG_SSDP():
         self.fhdhr = fhdhr
 
         self.ssdp_content = None
+        self.ssdp_alive_content = None
 
         self._broadcast_ip = _broadcast_ip
         self.nt = 'urn:schemas-upnp-org:device-1-0'
@@ -16,9 +17,34 @@ class RMG_SSDP():
         self.al = self.location
         self.max_age = 1800
 
-    def get(self):
+    def notify(self):
         if self.ssdp_content:
             return self.ssdp_content.encode("utf-8")
+
+        data = (
+            "NOTIFY * HTTP/1.1"
+            "\r\n"
+            "ST:upnp:rootdevice"
+            "\r\n"
+            "USN:{}"
+            "\r\n"
+            "SERVER:{}"
+            "\r\n"
+        ).format(
+                 self.usn,
+                 self.server
+                 )
+        if self.location is not None:
+            data += "LOCATION:{}\r\n".format(self.location)
+        if self.max_age is not None:
+            data += "Cache-Control:max-age={}\r\n".format(self.max_age)
+        data += "\r\n"
+        self.ssdp_content = data
+        return data.encode("utf-8")
+
+    def alive(self):
+        if self.ssdp_alive_content:
+            return self.ssdp_alive_content.encode("utf-8")
 
         data = (
             "NOTIFY * HTTP/1.1\r\n"
@@ -40,5 +66,5 @@ class RMG_SSDP():
         if self.max_age is not None:
             data += "Cache-Control:max-age={}\r\n".format(self.max_age)
         data += "\r\n"
-        self.ssdp_content = data
+        self.ssdp_alive_content = data
         return data.encode("utf-8")
